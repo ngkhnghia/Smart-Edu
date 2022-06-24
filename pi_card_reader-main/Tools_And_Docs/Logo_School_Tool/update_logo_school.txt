@@ -1,0 +1,53 @@
+
+********************************************************************************************************************
+                    HƯỚNG DẪN UPDATE LOGO VÀ TÊN TRƯỜNG TẠI ĐỊA ĐIỂM LẮP ĐẶT THIẾT BỊ
+********************************************************************************************************************
+
+* Hướng dẫn áp dụng cho các phiên bản từ 1.0.0 của sản phẩm
+* Thực hiện các bước trong file hướng dẫn này sẽ mất từ 5 đến 10 phút, có thể lâu hơn tuỳ vào người thực hiện
+
+### Bước 1: Đưa file vào thiết bị
+
+- Copy file hướng dẫn này từ USB sang thiết bị 
+(hoặc tìm trong home/pi_card_reader/Tools_And_Docs/Logo_School_Tool/, đã có sẵn)
+
+- Copy file tool đã viết sẵn từ USB sang thiết bị (tên là update_logo_school.sh)
+(hoặc tìm trong home/pi_card_reader/Tools_And_Docs/Logo_School_Tool/, đã có sẵn)
+
+- Copy logo trường từ USB sang thiết bị, đưa vào đường dẫn sau home/pi_card_reader/assets/
+Yêu cầu logo phù hợp, kích thước 400x400, độ phân giải lớn hơn 700x700
+
+- Đổi tên file ảnh logo thành logo.png, nếu đã có ảnh trùng tên thì xoá ảnh đó đi
+
+### Bước 2: Sửa đổi một số file
+
+- Mở file sau: SontranBK/pi_card_reader/lib/homepage.dart, tìm dòng số 43, sẽ thấy dòng sau "Text('  Trường Tiểu học Phan Chu Trinh', ..."
+Sửa tên trường thành trường mình mong muốn, thêm 2 dấu cách vào trước tên trường
+
+- Mở file: SontranBK/pi_card_reader/Bash_Script/display.sh, sửa dòng sau "chromium-browser --start-fullscreen --app=http://localhost:41200" 
+Tăng số ở sau chữ localhost lên 1 đơn vị (ví dụ từ 41200 thành 41201)
+
+- Mở file: SontranBK/pi_card_reader/Bash_Script/generate_UI.sh, sửa dòng sau "echo 1 | sudo -S python3 -m http.server 41200"
+Tương tự, tăng số lên 1 đơn vị (ví dụ từ 41200 thành 41201, số này với số bên trên phải giống nhau)
+
+### Bước 3: Chạy tool đã viết sẵn
+
+- Tìm phần mềm terminal -> Chuột phải -> Chọn Preference -> Chọn profile "Debug" -> thoát phần mềm
+
+- Vẫn phần mềm terminal -> Chuột phải -> Chọn New Window
+Sau đó chạy 2 lệnh sau (có thể copy paste từ file này vào, không cần gõ):
+
+cd ~
+sh pi_card_reader/Tools_And_Docs/Logo_School_Tool/update_logo_school.sh
+
+- Ta đợi tool viết sẵn chạy xong (sẽ mất khoảng 200 giây), 
+Khi chạy xong, phần mềm Terminal sẽ hiện ra chữ metaedu@metaedu:~$ màu xanh lá cây để ta chạy lệnh tiếp
+
+- Ta thoát phần mềm terminal, sau đó vẫn terminal -> Chuột phải -> Chọn Preference -> Chọn profile "Meta_edu" -> thoát phần mềm
+
+### Bước 4: Kiểm tra kết quả
+
+- Khởi động lại thiết bị, khi thiết bị mở lên, sẽ tự chạy vào API tự boot
+
+- Khi hiển thị lên giao diện, nếu hiện thông báo ở góc bên trái phía trên thì chọn "Allow"
+(giao diện hỏi gì thì cũng cấp hết quyền cho giao diện bằng cách chọn "Allow")
